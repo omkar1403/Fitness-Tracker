@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import LogoImage from "../utils/Images/Logo.png"
 import AuthImage from "../utils/Images/AuthImage.jpg";
 
+import SignUp from '../components/SignUp';
+import Signin from '../components/Signin';
+
 
 
 const Container = styled.div`
@@ -75,18 +78,19 @@ const Authentication = () => {
             <Right>
             {!login ? (
           <>
-          
+          <Signin />
             <Text>
+
               Don't have an account?{" "}
-              
+              <TextButton onClick={() => setLogin(true)}>SignUp</TextButton>
             </Text>
           </>
         ) : (
           <>
-           
+           <SignUp />
             <Text>
               Already have an account?{" "}
-             
+              <TextButton onClick={() => setLogin(false)}>SignIn</TextButton>
             </Text>
           </>
         )}
