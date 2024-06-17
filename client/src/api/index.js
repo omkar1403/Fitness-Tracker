@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "https://fitness-tracker-ap.vercel.app/api/user",
+    baseURL: "https://fitness-tracker-ap.vercel.app/api/user/",
 });
 
 export const UserSignUp = async (data) => API.post("/user/signup", data);
