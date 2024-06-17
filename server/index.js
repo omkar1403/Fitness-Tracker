@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
-const allowedOrigins = ['https://fitness-tracker-frontend-teal.vercel.app/']; // Add other allowed origins here
+const allowedOrigins = ['https://fitness-tracker-frontend-teal.vercel.app']; // Add other allowed origins here
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
