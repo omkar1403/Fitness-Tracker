@@ -26,33 +26,34 @@ const Title = styled.div`
   }
 `;
 
-const AddWorkouts = ({workout,setWorkout}) => {
-    
-    return (
-        <Card>
-        <Title>Add New Workout</Title>
-        <TextInput
-          label="Workout"
-          textArea
-          rows={10}
-          placeholder={`Enter in this format:
-  
-  #Category
-  -Workout Name
-  -Sets
-  -Reps
-  -Weight
-  -Duration`}
-          value={workout}
-          handelChange={(e) => setWorkout(e.target.value)}
-        />
-         <Button
+const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
+  return (
+    <Card>
+      <Title>Add New Workout</Title>
+      <TextInput
+        label="Workout"
+        textArea
+        rows={10}
+        placeholder={`Enter in this format:
+
+#Category
+-Workout Name
+-Sets
+-Reps
+-Weight
+-Duration`}
+        value={workout}
+        handelChange={(e) => setWorkout(e.target.value)}
+      />
+      <Button
         text="Add Workout"
         small
-      
+        onClick={() => addNewWorkout()}
+        isLoading={buttonLoading}
+        isDisabled={buttonLoading}
       />
-        </Card>
-    );
+    </Card>
+  );
 };
 
-export default AddWorkouts
+export default AddWorkout;

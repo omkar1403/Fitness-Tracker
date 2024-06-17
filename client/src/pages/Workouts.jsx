@@ -4,7 +4,9 @@ import WorkoutCard from "../components/cards/WorkoutCard";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers";
-
+import { getWorkouts } from "../api";
+import { CircularProgress } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   flex: 1;
@@ -44,7 +46,6 @@ const Title = styled.div`
 const Right = styled.div`
   flex: 1;
 `;
-
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -71,31 +72,53 @@ const SecTitle = styled.div`
   font-weight: 500;
 `;
 
-const Workout = () => {
+const Workouts = () => {
+  const dispatch = useDispatch();
+  const [todaysWorkouts, setTodaysWorkouts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState("");
+
+  const getTodaysWorkout = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("fittrack-app-token");
+    await getWorkouts(token, date ? `?date=${date}` : "").then((res) => {
+      setTodaysWorkouts(res?.data?.todaysWorkouts);
+      console.log(res.data);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getTodaysWorkout();
+  }, [date]);
   return (
     <Container>
-    <Wrapper>
-      <Left>
-        <Title>Select Date</Title>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar/>
+      <Wrapper>
+        <Left>
+          <Title>Select Date</Title>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar
+              onChange={(e) => setDate(`${e.$M + 1}/${e.$D}/${e.$y}`)}
+            />
           </LocalizationProvider>
-      </Left>
-      <Right>
-      <Section>
+        </Left>
+        <Right>
+          <Section>
             <SecTitle>Todays Workout</SecTitle>
-           
+            {loading ? (
+              <CircularProgress />
+            ) : (
               <CardWrapper>
-              <WorkoutCard />
-              <WorkoutCard />
-              <WorkoutCard />
+                {todaysWorkouts.map((workout) => (
+                  <WorkoutCard workout={workout} />
+                ))}
               </CardWrapper>
-           
+            )}
           </Section>
-      </Right>
-    </Wrapper>
-  </Container>
-  )
-}
+        </Right>
+      </Wrapper>
+    </Container>
+  );
+};
 
-export default Workout
+export default Workouts;

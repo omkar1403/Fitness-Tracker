@@ -54,27 +54,26 @@ const Details = styled.div`
 
 
 
-const WorkoutCard = () => {
-  return (
-   <Card>
-    <Category>
-   #Legs
-    </Category>
-    <Name>Back Squat</Name>
-    <Sets>Count:5 sets X 10reps</Sets>
-    <Flex>
-        <Details>
-            <FitnessCenterRounded sx={{fontSize:"20px"}} />
-            30kg 
-        </Details>
+const WorkoutCard = ({ workout }) => {
+    return (
+        <Card>
+            <Category>#{workout?.category}</Category>
+            <Name>{workout?.workoutName}</Name>
+            <Sets>
+                Count: {workout?.sets} sets X {workout?.reps} reps
+            </Sets>
+            <Flex>
+                <Details>
+                    <FitnessCenterRounded sx={{ fontSize: "20px" }} />
+                    {workout?.weight} kg
+                </Details>
+                <Details>
+                    <TimelapseRounded sx={{ fontSize: "20px" }} />
+                    {workout?.duration} min
+                </Details>
+            </Flex>
+        </Card>
+    );
+};
 
-        <Details>
-            <TimelapseRounded sx={{fontSize:"20px"}} />
-            30kg 
-        </Details>
-    </Flex>
-   </Card>
-)
-}
-
-export default WorkoutCard
+export default WorkoutCard;
