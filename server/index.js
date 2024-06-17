@@ -32,6 +32,13 @@ app.get("/", async (req, res) => {
   });
 });
 
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 app.use("/api/user/", UserRoutes);
 
 app.use((err, req, res, next) => {
