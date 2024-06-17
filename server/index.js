@@ -7,10 +7,24 @@ import UserRoutes from "./routes/User.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// CORS configuration
+const allowedOrigins = ['http://localhost:3000']; // Add other allowed origins here
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT'], // Specify allowed methods
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); // for form data
-
 
 app.get("/", async (req, res) => {
     res.status(200).json({
@@ -33,23 +47,23 @@ app.use((err, req, res, next) => {
 const connectDB = () => {
     mongoose.set("strictQuery", true);
     mongoose
-      .connect(process.env.MONGODB_URL)
-      .then(() => console.log("Connected to Mongo DB"))
-      .catch((err) => {
-        console.error("failed to connect with mongo");
-        console.error(err);
-      });
-  };
-  
-  const startServer = async () => {
+        .connect(process.env.MONGODB_URL)
+        .then(() => console.log("Connected to Mongo DB"))
+        .catch((err) => {
+            console.error("Failed to connect with MongoDB");
+            console.error(err);
+        });
+};
+
+const startServer = async () => {
     try {
-      connectDB();
-      app.listen(8080, () => console.log("Server started on port 8080"));
+        connectDB();
+        app.listen(8080, () => console.log("Server started on port 8080"));
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
-  
-  startServer();
+};
+
+startServer();
 
 export default connectDB;

@@ -1,0 +1,48 @@
+/* src/AboutUs.css */
+
+
+.about-us {
+
+    background-size: cover;
+    background-position: left;
+    height: 100vh;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    color: rgb(243, 232, 232);
+    text-shadow: 2px 2px 4px rgba(18, 0, 0, 0.959);
+}
+
+.content {
+    background: rgb(18, 19, 19);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.social-media {
+    margin-top: 20px;
+}
+
+.social-icon {
+    font-size: 40px;
+    margin: 0 10px;
+    transition: transform 0.3s;
+    color: rgb(253, 252, 252);
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}

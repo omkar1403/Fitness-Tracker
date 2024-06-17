@@ -7,8 +7,11 @@ import { useSelector } from "react-redux";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Workouts from "./pages/Workouts";
+import AboutUs from "./pages/AboutUs";
+import Tutorial from "./pages/Tutorial";
 
-const Container=styled.div`
+
+const Container = styled.div`
 width:100%;
 height:100vh;
 display:flex;
@@ -23,23 +26,25 @@ flex-direction: column;
 function App() {
   const { currentUser } = useSelector((state) => state.user);
   return <ThemeProvider theme={lightTheme}>
-      <BrowserRouter>
-      {currentUser?(
+    <BrowserRouter>
+      {currentUser ? (
         <Container>
-       <Navbar currentUser={currentUser}/>
-       <Routes>
-       <Route path="/" exact element={<Dashboard />} />
-       <Route path="/workouts" exact element={<Workouts />} />
-       </Routes>
+          <Navbar currentUser={currentUser} />
+          <Routes>
+            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/workouts" exact element={<Workouts />} />
+            <Route path="/AboutUs" exact element={<AboutUs />} />
+            <Route path="/tutorial" exact element={<Tutorial />} />
+          </Routes>
         </Container>
-      ):(
+      ) : (
         <Container>
-        <Authentication/>
-      </Container>
+          <Authentication />
+        </Container>
       )}
-      
-      </BrowserRouter>
-    </ThemeProvider>;
+
+    </BrowserRouter>
+  </ThemeProvider>;
 
 }
 
